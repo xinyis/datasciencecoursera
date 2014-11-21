@@ -1,4 +1,5 @@
 The following is performed in the run_analysis.R to process the dataset.
+
 1. readin feature list and activity lables data
 
     After downloading the dataset and extract it, readin the features.txt and activity_labels in the dataset folder as features and activities. 
