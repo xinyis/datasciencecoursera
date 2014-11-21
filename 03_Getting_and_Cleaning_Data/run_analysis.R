@@ -9,24 +9,24 @@
 features <- read.table("./UCI HAR Dataset/features.txt",stringsAsFactors=FALSE);
 activities <- read.table("./UCI HAR Dataset/activity_labels.txt",stringsAsFactors=FALSE);
 
-#readin test files
+#readin test files and training files
 testFeatureData <- read.table("./UCI HAR Dataset/test/x_test.txt");
 testSubjectData <- read.table("./UCI HAR Dataset/test/subject_test.txt");
 testActivityData <- read.table("./UCI HAR Dataset/test/y_test.txt");
-testData <- cbind(testFeatureData,testSubjectData,testActivityData);
-
-#readin training files
 trainingFeatureData <- read.table("./UCI HAR Dataset/train/x_train.txt");
 trainingSubjectData <- read.table("./UCI HAR Dataset/train/subject_train.txt");
 trainingActivityData <- read.table("./UCI HAR Dataset/train/y_train.txt");
-trainingData <- cbind(trainingFeatureData,trainingSubjectData,trainingActivityData);
 
-#merge the training and test datasets
+#combine to form the full testData and trainingData
+#and then merge the training and test datasets
+testData <- cbind(testFeatureData,testSubjectData,testActivityData);
+trainingData <- cbind(trainingFeatureData,trainingSubjectData,trainingActivityData);
 completeData <- rbind(testData,trainingData);
+
 #assign colnames to each columns
 colnames(completeData) <- c(features$V2,'Subject','Activity');
 
-#merge the complete data set with acitivitys dataset 
+#merge the complete data set with acitivities dataset 
 #to assign each record its activity label
 mergedData <- merge(completeData, activities, by.x='Activity', by.y='V1',all=TRUE)
 colnames(mergedData)[length(colnames(mergedData))] <- 'ActivityLabel';
